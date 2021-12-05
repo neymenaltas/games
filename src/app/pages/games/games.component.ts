@@ -7,6 +7,7 @@ import { ChangeSearchTerm, GetGames } from "../../shared/store/games.actions";
 import { debounceTime, distinctUntilChanged, takeUntil } from "rxjs/operators";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormControl } from "@angular/forms";
+import { MatOptionSelectionChange } from "@angular/material/core";
 
 @Component({
 	selector: "app-games",
@@ -73,7 +74,7 @@ export class GamesComponent implements OnInit, OnDestroy {
 	}
 
 
-	changeSelectedProviders(event: { source: { value: any; selected: any; }; }) {
+	changeSelectedProviders(event: MatOptionSelectionChange) {
 		if (event.source.selected) {
 			if (this.selectedProviders?.length) {
 				this.selectedProviders = [...this.selectedProviders, event.source.value];
