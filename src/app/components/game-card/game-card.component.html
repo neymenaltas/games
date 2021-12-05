@@ -1,0 +1,5 @@
+<div class="app-game-card" [routerLink]="['../games/game.slug']" [queryParams]="{slug: game.slug}" [ngStyle]="(game?.thumb?.url) ? {'background-image': 'url(\' ' + game?.thumb?.url} : null">
+	<div class="card-wrapper-opacity">
+		<span class="game-title">{{game?.title}}</span>
+	</div>
+</div>

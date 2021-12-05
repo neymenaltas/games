@@ -1,0 +1,10 @@
+<div class="app-home">
+	<div class="app-home__title">
+		<h1>Trending Games</h1>
+	</div>
+	<div class="app-home__content">
+		<div *ngFor="let game of games">
+			<app-game-card [game]="game"></app-game-card>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,55 @@
+@import "@app/colors";
+
+.sticky-bottom-wrapper-opened {
+  background: $gray;
+  height: 400px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+
+  .game-card {
+	margin: 4px;
+  }
+
+  button {
+	position: absolute;
+	margin: 8px 20px;
+	right: 0;
+  }
+
+  .games-wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+  }
+
+  .sticky-bottom-header {
+	margin: 8px 20px;
+	color: $white;
+  }
+
+}
+
+.sticky-bottom-wrapper-closed {
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: $gray;
+
+  button {
+	margin: 8px 20px;
+	position: absolute;
+	right: 0;
+  }
+
+  .sticky-bottom-header {
+	margin: 8px 20px;
+	color: $white;
+  }
+}

@@ -1,0 +1,13 @@
+<div *ngIf="isOpened" class="sticky-bottom-wrapper-opened">
+	<h2 class="sticky-bottom-header">Last Played Games</h2>
+	<button mat-raised-button color="primary" (click)="toggle()"><mat-icon>keyboard_arrow_down</mat-icon></button>
+	<div class="games-wrapper">
+		<div class="game-card" *ngFor="let game of games">
+			<app-game-card [game]="game"></app-game-card>
+		</div>
+	</div>
+</div>
+<div *ngIf="!isOpened" class="sticky-bottom-wrapper-closed">
+	<h2 class="sticky-bottom-header">Last Played Games</h2>
+	<button mat-raised-button color="primary" (click)="toggle()"><mat-icon>keyboard_arrow_up</mat-icon></button>
+</div>

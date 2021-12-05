@@ -1,0 +1,25 @@
+<div class="app-games">
+	<div class="app-games__header">
+		<div class="dropdown-wrapper">
+			<mat-form-field appearance="fill">
+				<mat-label>Providers</mat-label>
+				<mat-select [formControl]="formProvider" multiple>
+					<button mat-raised-button color="primary" (click)="clearSelectedProviders()">Clear All</button>
+					<mat-option *ngFor="let provider of searchedResultProviders" [value]="provider" (onSelectionChange)="changeSelectedProviders($event)">{{provider}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="input-wrapper">
+			<div class="input-wrapper__search-filter">
+				<input class="input-wrapper__search-filter__input" type="search" id="searchText" placeholder="Search"
+					   [(ngModel)]="searchTerm"
+					   (ngModelChange)="searchTermUpdate$.next($event)">
+			</div>
+		</div>
+	</div>
+	<div class="app-games__body">
+		<div *ngFor="let game of games">
+			<app-game-card [game]="game"></app-game-card>
+		</div>
+	</div>
+</div>

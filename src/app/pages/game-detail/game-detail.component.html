@@ -1,0 +1,4 @@
+<div class="app-game-detail">
+	<app-game-card *ngIf="gameDetail" [game]="gameDetail"></app-game-card>
+	<button *ngIf="gameDetail" mat-raised-button color="primary" class="primary-button"><a [href]="gameDetail?.startUrl">Play For Fun</a></button>
+</div>

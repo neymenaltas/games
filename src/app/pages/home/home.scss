@@ -1,0 +1,29 @@
+@import "@app/colors";
+@import "@app/mixins";
+
+.app-home {
+  &__title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  &__content {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fill, 300px);
+	  height: 80vh;
+	  grid-column-gap: 20px;
+	  grid-row-gap: 20px;
+	  justify-content: center;
+	  overflow-y: scroll;
+	  padding-top: 20px;
+  }
+
+  &__json-data-container {
+	  background-color: $black;
+	  color: $white;
+
+	  @include breakpoint("xsmall") {
+		  color: $neon-green;
+	  }
+  }
+}
