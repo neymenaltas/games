@@ -1,5 +1,5 @@
 <mat-sidenav-container class="sidenav">
-	<mat-sidenav #sidenav mode="over">
+	<mat-sidenav #sidenav class="material-sidenav" mode="over">
 		<button class="chevron-right" mat-raised-button color="primary" (click)="sidenav.toggle()"><mat-icon>chevron_left</mat-icon></button>
 		<app-sidebar-content (sidenav)="sidenav.toggle()"></app-sidebar-content>
 	</mat-sidenav>
