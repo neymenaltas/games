@@ -25,7 +25,6 @@ export class GamesComponent implements OnInit, OnDestroy {
 	selectedProviders: string[] = [];
 	searchTermUpdate$: Subject<string> = new Subject<string>();
 	_endSubscriptions$: Subject<boolean> = new Subject();
-	isClearAllClicked = false;
 
 	formProvider = new FormControl();
 
@@ -94,7 +93,6 @@ export class GamesComponent implements OnInit, OnDestroy {
 	}
 
 	clearSelectedProviders() {
-		this.isClearAllClicked = true;
 		this.updateQueryParams(
 			{
 				searchTerm: this.searchTerm,
