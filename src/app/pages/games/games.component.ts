@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { GamesState } from "../../shared/store/games.state";
-import { Observable, Subject } from "rxjs";
+import { forkJoin, Observable, Subject } from "rxjs";
 import { Game } from "../../shared";
 import { Select, Store } from "@ngxs/store";
 import { ChangeSearchTerm, GetGames } from "../../shared/store/games.actions";
-import { debounceTime, distinctUntilChanged, takeUntil } from "rxjs/operators";
+import { debounceTime, distinctUntilChanged, takeUntil, withLatestFrom } from "rxjs/operators";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormControl } from "@angular/forms";
 import { MatOptionSelectionChange } from "@angular/material/core";
@@ -18,6 +18,7 @@ export class GamesComponent implements OnInit, OnDestroy {
 
 	@Select(GamesState.getGamesList) gamesData$: Observable<Game[]> | undefined;
 	@Select(GamesState.getSearchedResultProviders) searchedResultProviders$: Observable<string[]> | undefined;
+	@Select(GamesState.getSelectedProviders) selectedProviders$: Observable<string[]> | undefined;
 	@Select(GamesState.getSearchTerm) searchTerm$: Observable<string> | undefined;
 
 	games: Game[] = [];
@@ -26,6 +27,7 @@ export class GamesComponent implements OnInit, OnDestroy {
 	selectedProviders: string[] = [];
 	searchTermUpdate$: Subject<string> = new Subject<string>();
 	_endSubscriptions$: Subject<boolean> = new Subject();
+	isProvidersChanged = false;
 
 	formProvider = new FormControl();
 
@@ -71,10 +73,24 @@ export class GamesComponent implements OnInit, OnDestroy {
 			this.searchedResultProviders = providers;
 		});
 
+		// @ts-ignore
+		this.selectedProviders$?.pipe(withLatestFrom(this.searchedResultProviders$))
+			.subscribe(([selectedProviders, searchedResultProviders]: any) => {
+				if (!selectedProviders.length && searchedResultProviders?.length && !this.isProvidersChanged) {
+					this.updateQueryParams(
+						{
+							searchTerm: this.searchTerm,
+							selectedProviders: searchedResultProviders
+						}
+					);
+				}
+			});
+
 	}
 
 
 	changeSelectedProviders(event: MatOptionSelectionChange) {
+		this.isProvidersChanged = true;
 		if (event.source.selected) {
 			if (this.selectedProviders?.length) {
 				this.selectedProviders = [...this.selectedProviders, event.source.value];
@@ -94,6 +110,7 @@ export class GamesComponent implements OnInit, OnDestroy {
 	}
 
 	clearSelectedProviders() {
+		this.isProvidersChanged = true;
 		this.updateQueryParams(
 			{
 				searchTerm: this.searchTerm,
